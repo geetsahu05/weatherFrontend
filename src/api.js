@@ -1,7 +1,14 @@
 import axios from "axios";
 import { getClientId } from "./utils/clientId";
 
-const API_BASE = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080/api";
+let API_BASE;
+
+if (window.location.hostname.includes("localhost")) {
+  API_BASE = "http://localhost:8080/api";
+} else {
+  API_BASE = "https://weatherbackend-livid.vercel.app/api";
+}
+
 const clientId = getClientId();
 
 const api = axios.create({ baseURL: API_BASE, headers: { "X-Client-Id": clientId } });
